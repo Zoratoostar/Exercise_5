@@ -1,22 +1,22 @@
 
 class Train
   include ProducingCompany
-  
+
   attr_reader :unique_number, :route, :carriages
   attr_accessor :speed, :current_station_index
   protected :speed, :current_station_index
 
-  @@trains = []
+  @@trains = {}
 
   def self.find(uid)
-    @@trains.find { |trn| trn.unique_number == uid.to_s }
+    @@trains[uid.to_s]
   end
 
   def initialize(uid)
     @unique_number = uid.to_s
     @carriages = []
     @speed = 0
-    @@trains << self
+    @@trains[unique_number] = self
   end
 
   def add_speed(amount)
